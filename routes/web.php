@@ -3,6 +3,8 @@
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
+use FamilyTree365\LaravelGedcom\Facades\GedcomParserFacade;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +32,10 @@ Route::prefix('api')->group(function (){
     Route::prefix('delete')->group(function (){
         Route::delete('/users',[ApiController::class, 'deleteUsers']);
     });
+});
+
+Route::get('/import',function (){
+    $filename = asset('/app-assets/gedcoms/JacquelineLapiere.ged');
+    GedcomParserFacade::parse("",$filename,"", false);
+    echo "done";
 });
